@@ -9,7 +9,7 @@ pipeline {
         stage('Integration Tests') {
             steps {       
                 // Run Maven on a Unix agent.
-                sh "mvn verify -Pfailsafe"
+                sh "mvn verify -Pfailsafe:integration-test"
             }          
         }
     }
