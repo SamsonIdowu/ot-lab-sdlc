@@ -5,7 +5,6 @@ pipeline {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "Maven3"
     }
-
     stages {
         stage('Workspace Flush'){
             steps {
@@ -14,20 +13,17 @@ pipeline {
                 }
             }
         }
-
         stage('Fetch') {
             steps {
                 // Fetch the code from GitHub project repository
                 git url: 'https://github.com/SamsonIdowu/ot-lab-sdlc.git', branch: 'main'
             }
         }
-
         stage('Build') {
             steps {       
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
-            }
-                    
+            }         
         }
     }
 }
