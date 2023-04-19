@@ -9,8 +9,7 @@ pipeline {
         stage('Integration Tests') {
             steps {       
                 // Run Maven on a Unix agent.
-                sh "cd /home/samson/jenkins_agent/workspace/job1"
-                sh "mvn failsafe:integration-test"
+                sh "cd /home/samson/jenkins_agent/workspace/job1 && mvn failsafe:integration-test"
             }          
         }
     }
