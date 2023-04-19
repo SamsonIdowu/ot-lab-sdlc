@@ -11,7 +11,7 @@ pipeline {
                 dir("/home/samson/jenkins_agent/workspace/job1"){
                 sh "mvn failsafe:integration-test"
                 }
-            }          
+            }
         }
     }
 }
