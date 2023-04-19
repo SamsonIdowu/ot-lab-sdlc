@@ -18,7 +18,7 @@ pipeline {
         stage('Fetch') {
             steps {
                 // Fetch the code from GitHub project repository
-                git url:'https://github.com/SamsonIdowu/ot-lab-sdlc.git' branch 'main'
+                git url: 'https://github.com/SamsonIdowu/ot-lab-sdlc.git', branch: 'main'
             }
         }
 
