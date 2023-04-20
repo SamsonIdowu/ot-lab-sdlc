@@ -25,14 +25,14 @@ pipeline {
                 sh "docker login -u $USERNAME -p $TOKEN"
 
                 // Push the image to the artifact repository
-                sh "docker push samsonidowu/OTlab3-app"
+                sh "docker push samsonidowu/otlab3-app"
             }
         }
         
         stage('Clean Up') {
             steps {
                 // Delete previously created images
-                sh "docker images prune -a -f"
+                sh "docker image prune -af"
             }
         }
     }
