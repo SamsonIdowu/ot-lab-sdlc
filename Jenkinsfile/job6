@@ -1,6 +1,6 @@
 pipeline {
-    agent {
-        label 'agent1'
+    agent any
+
     }
     environment {
         USERNAME = credentials('DOCKER_USERNAME')
@@ -8,26 +8,24 @@ pipeline {
     }
     stages {
         stage('Containerize Artifacts') {
-            steps {
-                
+            steps {    
                 // Build the Immage from docker file
                 dir('/home/samson/jenkins_agent/workspace/job1'){
                     sh '''
-                        wget https://github.com/SamsonIdowu/ot-lab-sdlc/blob/main/Dockerfile|| true
+                        wget https://github.com/SamsonIdowu/ot-lab-sdlc/blob/main/Dockerfile || true
                         docker build -t samsonidowu/OTlab3-app .
                     '''
                 }
 
             }
         }
-        stage('Push Image') {
+        stage('Login & Push Image') {
             steps {
                 //Login to dockerHub
                 sh "docker login -u $USERNAME -p $TOKEN"
                 
                 //Push the image to artifact repository
                 sh "docker push samsonidowu/OTlab3-app"
-            
             }
         }
         stage('Clean Up') {
