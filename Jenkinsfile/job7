@@ -4,16 +4,17 @@ pipeline {
     stages {
         stage('Clean Up') {
             steps {
-                // Delete previously running instances of the container
-                sh "docker rm otlab3-app || true"
+                // Delete previously running instances of the container and image
+                sh "docker rm -f otlab3-app || true"
+                sh "docker rmi -f samsonidowu/otlab3-app"
             }
         }
         stage('Deploy App') {
             steps {
                 // Pull and run the image as a container on the jenkins agent
                 sh '''
-                docker pull samsonidowu/otlab3-app"
-                docker run -d samsonidowu/otlab3-app --name otlab3-app
+                docker pull samsonidowu/otlab3-app
+                docker run -d --name otlab3-app -p 8080:8080 samsonidowu/otlab3-app 
                 '''
             }
         }
