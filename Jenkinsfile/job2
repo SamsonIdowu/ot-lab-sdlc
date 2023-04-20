@@ -8,8 +8,7 @@ pipeline {
     stages {
         stage('Unit Tests') {
             steps {       
-                // Run Maven on a Unix agent.
-                sh "mvn test"
+                sh "cd /home/samson/jenkins_agent/workspace/job1 && mvn test"
             }          
         }
     }
