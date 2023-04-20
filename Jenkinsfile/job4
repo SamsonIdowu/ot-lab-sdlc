@@ -11,9 +11,8 @@ pipeline {
                 sh "cd /home/samson/jenkins_agent/workspace/job1 && \
                     mvn pmd:pmd && \
                     mvn checkstyle:checkstyle && \
-                    mvn findbugs:findbugs"
-                
-                recordIssues(tools: [checkStyle(), pmdParser(), findBugs(useRankAsPriority: true)])
+                    mvn findbugs:findbugs
+                    recordIssues(tools: [checkStyle(), pmdParser(), findBugs(useRankAsPriority: true)])"
             }
         }
     }
