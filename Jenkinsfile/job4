@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "Maven Install" and add it to the path.
+        maven "Maven3"
+    }
+    stages {
+        stage('Static Code Analysis') {
+            steps {
+                sh "cd /home/samson/jenkins_agent/workspace/job1 && \
+                    mvn pmd:pmd && \
+                    mvn checkstyle:checkstyle && \
+                    mvn findbugs:findbugs"
+                
+                recordIssues(tools: [checkStyle(), pmdParser(), findBugs(useRankAsPriority: true)])
+            }
+        }
+    }
+}
