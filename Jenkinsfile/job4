@@ -5,15 +5,18 @@ pipeline {
         // Install the Maven version configured as "Maven Install" and add it to the path.
         maven "Maven3"
     }
+
     stages {
         stage('Static Code Analysis') {
             steps {
+                // Run Maven static code tests on a Unix agent.
                 dir('/home/samson/jenkins_agent/workspace/job1'){
-                sh "mvn pmd:pmd"
-                sh "mvn checkstyle:checkstyle"
-                sh "mvn findbugs:findbugs"
+                    sh "mvn pmd:pmd"
+                    sh "mvn checkstyle:checkstyle"
+                    sh "mvn com.github.spotbugs:spotbugs-maven-plugin:3.1.7:spotbugs"
+                
+                    recordIssues(tools: [checkStyle(reportEncoding: 'UTF-8'), pmdParser(reportEncoding: 'UTF-8'), spotBugs(reportEncoding: 'UTF-8', useRankAsPriority: true)])
                 }
-                recordIssues(tools: [checkStyle(), pmdParser(), findBugs(useRankAsPriority: true)])
             }
         }
     }
