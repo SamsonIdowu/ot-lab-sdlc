@@ -10,18 +10,10 @@ pipeline {
         stage('Static Code Analysis') {
             steps {
                 sh "cd /home/samson/jenkins_agent/workspace/job1 && \
-                    mvn pmd:pmd && \
-                    mvn checkstyle:checkstyle && \
-                    mvn findbugs:findbugs"
-            }
-
-            post {
-                always {
-                    recordIssues(
-                        tools: ["checkstyle", "pmd", "findbugs"],
-                        useRankAsPriority: true
-                    )
-                }
+                mvn pmd:pmd && \
+                mvn checkstyle:checkstyle && \
+                mvn findbugs:findbugs && \
+                recordIssues(tools: [checkStyle(), pmdParser(), findBugs(useRankAsPriority: true)])"
             }
         }
     }
