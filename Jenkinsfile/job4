@@ -13,9 +13,9 @@ pipeline {
                 dir('/home/samson/jenkins_agent/workspace/job1'){
                     sh "mvn pmd:pmd"
                     sh "mvn checkstyle:checkstyle"
-                    sh "mvn com.github.spotbugs:spotbugs-maven-plugin:3.1.7:spotbugs"
+                    sh "mvn findbugs:findbugs"
                 
-                    recordIssues(tools: [checkStyle(reportEncoding: 'UTF-8'), pmdParser(reportEncoding: 'UTF-8'), spotBugs(reportEncoding: 'UTF-8', useRankAsPriority: true)])
+                    recordIssues(tools: [checkStyle(reportEncoding: 'UTF-8'), pmdParser(reportEncoding: 'UTF-8'), findBugs(reportEncoding: 'UTF-8', useRankAsPriority: true)])
                 }
             }
         }
